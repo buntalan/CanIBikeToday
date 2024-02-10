@@ -1,5 +1,4 @@
 import requests
-import json
 import geocoder
 import time
 import datetime
@@ -7,6 +6,7 @@ import datetime
 class WeatherFetcher:    
     rained = False
 
+    # Find timestamp and format into usable string for get request
     def timeThreeDaysAgo(self):
         # Get today's time in seconds since epoch and subtract 3 days. Format to usable string for API call
         t = time.time()
@@ -15,7 +15,7 @@ class WeatherFetcher:
         
         return t
 
-
+    # Function to send GET request to weather open API. 
     def FetchWeather(self):
         # Grab user's approximate coordinates/location
         g = geocoder.ip('me')
@@ -35,13 +35,14 @@ class WeatherFetcher:
         try:
             response = requests.get(f"https://api.weather.gov/stations/{response.json()['properties']['radarStation']}/observations?start={t}&limit=2")
             
-            #TODO: add a way to loop through JSON and print rainy days
+            # Store decoded json into variable and store 'features' dict in weather
             data = response.json()          # Assign response json data
             weather = data['features']      # nested dict within data
             i = 0                           # Loop variable
 
             while (i < len(weather)):
-                print(weather[i]['properties']['textDescription'])
+                if 'Rain' in weather[i]['properties']['textDescription']:
+                    self.rained = True
                 i+=1
 
         except:
@@ -56,7 +57,7 @@ class WeatherFetcher:
         try:
             response = requests.get(f"https://api.weather.gov/stations/{response.json()['properties']['radarStation']}/observations?start={t}")
             
-            #TODO: add a way to loop through JSON and print rainy days
+            # Store decoded json into variable and store 'features' dict in weather
             data = response.json()
             weather = data['features']
             i = 0 # Loop variable
@@ -70,8 +71,6 @@ class WeatherFetcher:
             print('An exception has occured.')
 
         return self.rained
-
-
 
 weather = WeatherFetcher()
 
