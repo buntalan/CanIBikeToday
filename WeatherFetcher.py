@@ -71,7 +71,33 @@ class WeatherFetcher:
             print('An exception has occured.')
 
         return self.rained
+    
+    def FetchLastDateRained(self):
+        response = self.FetchWeather()
+        
+        t = self.timeThreeDaysAgo()
+
+        try:
+            response = requests.get(f"https://api.weather.gov/stations/{response.json()['properties']['radarStation']}/observations?start={t}")
+            
+            # Store decoded json into variable and store 'features' dict in weather
+            data = response.json()
+            weather = data['features']
+            i = 0 # Loop variable
+
+            # Loop through weather observations, starting with latest date
+            while (i < len(weather)):
+                if 'Rain' in weather[i]['properties']['textDescription']:
+                    self.rained = True
+                    print('Latest rain date: ' + weather[i]['properties']['timestamp'])
+                    break
+                i+=1
+
+        except:
+            print('An exception has occured.')
+
+        return self.rained
 
 weather = WeatherFetcher()
 
-print(weather.CheckRainLastThreeDays())
+print(weather.FetchLastDateRained())

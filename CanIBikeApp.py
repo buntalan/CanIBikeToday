@@ -1,7 +1,7 @@
 import WeatherFetcher
 
 def main():
-    
+    weatherFeather = WeatherFetcher
     
     return
 
