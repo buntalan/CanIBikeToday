@@ -3,7 +3,7 @@ import geocoder
 import time
 import datetime
 
-class WeatherFetcher:    
+class WeatherFetcher():    
     rained = False
 
     # Find timestamp and format into usable string for get request
@@ -97,7 +97,3 @@ class WeatherFetcher:
             print('An exception has occured.')
 
         return self.rained
-
-weather = WeatherFetcher()
-
-print(weather.FetchLastDateRained())
