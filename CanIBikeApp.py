@@ -2,9 +2,13 @@ from WeatherFetcher import WeatherFetcher
 import PySimpleGUI as sg
 
 def main():
+    # Call istance of WeatherFetcher
     weatherFeather = WeatherFetcher()
-    layout = [[sg.Text("Can I Bike Today?")], [sg.Button("Check")]]
-    window = sg.Window('Can I Bike Today?', layout, margins=(400, 200))
+
+    # Initialize window elements
+    button = sg.Button("Check")
+    layout = [[sg.Text("Can I Bike Today?", key='status')], [button]]
+    window = sg.Window('Can I Bike Today?', layout, margins=(400, 200), finalize=True)
 
     # Create an event loop
     while True:
@@ -15,13 +19,11 @@ def main():
         if event == "Check":
             match weatherFeather.CheckRainLastThreeDays():
                 case False:
-                    print("ITS BIKING TIME BAYBEEEEE")
+                    window['status'].update('ITS BIKING TIME BAYBEEE LES GOOOOO')
                 case True:
-                    print("Nah, fuck you lol")
+                    window['status'].update('Nah, fuck you lol')
                 
-
     window.close()
-
 
 
 if __name__ == "__main__":
