@@ -48,7 +48,6 @@ class WeatherFetcher():
         except:
             print('An exception has occured.')
 
-
     def CheckRainLastThreeDays(self):
         response = self.FetchWeather()
         
