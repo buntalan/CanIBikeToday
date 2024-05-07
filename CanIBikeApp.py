@@ -19,9 +19,9 @@ def main():
         if event == "Check":
             match weatherFeather.CheckRainLastThreeDays():
                 case False:
-                    window['status'].update('ITS BIKING TIME BAYBEEE LES GOOOOO')
+                    window['status'].update('Time to bike!')
                 case True:
-                    window['status'].update('Nah, fuck you lol')
+                    window['status'].update('Not today... Check tomorrow!')
                 
     window.close()
 
