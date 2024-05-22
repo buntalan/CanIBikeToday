@@ -8,7 +8,10 @@ def main():
     # Initialize window elements
     button = sg.Button("Check")
     layout = [[sg.Text("Can I Bike Today?", key='status')], [button]]
-    window = sg.Window('Can I Bike Today?', layout, margins=(400, 200), finalize=True)
+    window = sg.Window('Can I Bike Today?', 
+                       layout, 
+                       margins=(400, 200), 
+                       finalize=True)
 
     # Create an event loop
     while True:
